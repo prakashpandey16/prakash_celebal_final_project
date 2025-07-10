@@ -1,35 +1,17 @@
 # ✅ Delta Table Automation Project — End-to-End
 
-## 🔧 Tools
-- Databricks Community Edition
-- Local Python Script (for sending email)
-
-## 📦 Features
-
-1. **Data Generation**
-   - Generate `1000` fake rows using libraries such as `Faker` or `random`.
-   - Ensure schema matches target Delta table.
-
-2. **Delta Table Append**
-   - Use **Delta Lake API** to append generated data to existing Delta table.
-   - Table versioning enabled for tracking changes.
-
-3. **Data Export**
-   - Query the **latest 100 rows** from the Delta table.
-   - Export result as a **CSV file**.
-
-4. **CSV Download**
-   - Manually download the exported CSV from **DBFS (Databricks File System)**.
-   - Use Databricks CLI or notebook commands.
-
-5. **Email Automation**
-   - Send email from **local system**.
-   - Attach the downloaded CSV file.
-   - Use `smtplib`, `email.mime`, or any preferred mail automation package.
-
-# 🔷 STEP 1: Generate & Append 1000 Fake Rows to Delta Table
+🔧 **Tools**: Databricks Community Edition + Local Python (for Email)  
+📦 **Features**:
+- Generate 1000 fake rows  
+- Append to Delta table using Delta Lake API  
+- Export latest data (100 rows) as CSV  
+- Manually download CSV from DBFS  
+- Send email from your local system with CSV as attachment  
 
 ---
+
+## 🔷 STEP 1: Generate & Append 1000 Fake Rows to Delta Table  
+📍 Run this in **Databricks CE Notebook**
 
 ### 🧾 Python Code
 
@@ -68,16 +50,11 @@ else:
     df.write.format("delta").mode("overwrite").save(delta_path)
 
 print("✅ Delta table updated with 1000 rows.")
----
----
-
-## 🔷 STEP 2: Read Full Delta Table & Show Latest 100 Rows
-
-This step loads the complete Delta table and displays the latest 100 rows based on the `ingestion_time` column.
-
-### 📌 Code
-
-```python
+🔷 STEP 2: Read Full Delta Table & Show Latest 100 Rows
+🧾 Python Code
+python
+Copy
+Edit
 # Load full Delta table
 df_all = spark.read.format("delta").load(delta_path)
 
@@ -85,5 +62,37 @@ df_all = spark.read.format("delta").load(delta_path)
 from pyspark.sql.functions import col
 df_all.orderBy(col("ingestion_time").desc()).show(100, truncate=False)
 
-print(f"✅ Total rows in Delta Table: {df_all.count()}") 
+print(f"✅ Total rows in Delta Table: {df_all.count()}")
+🔷 STEP 3: Export Top 100 Rows as CSV (Single File)
+🧾 Python Code
+python
+Copy
+Edit
+# Save latest 100 rows to single CSV part file
+df_all.orderBy("ingestion_time", ascending=False).limit(100) \
+    .coalesce(1).write.mode("overwrite").option("header", "true") \
+    .csv("dbfs:/tmp/user_data_latest")
 
+print("✅ Exported top 100 rows to CSV.")
+🔷 STEP 4: ✅ Manually Download the CSV File
+Go to Databricks sidebar → Data → DBFS
+
+Navigate to:
+
+bash
+Copy
+Edit
+/tmp/user_data_latest/
+Find the file that starts with:
+
+Copy
+Edit
+part-00000-
+Right-click → Download
+
+Rename it locally as:
+
+Copy
+Edit
+user_data_latest.csv
+✅ Now you have the CSV on your local system.
