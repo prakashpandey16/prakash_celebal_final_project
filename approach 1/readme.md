@@ -68,3 +68,19 @@ else:
     df.write.format("delta").mode("overwrite").save(delta_path)
 
 print("✅ Delta table updated with 1000 rows.")
+
+# 🔷 STEP 2: Read Full Delta Table & Show Latest 100 Rows
+
+
+### 🧾 Python Code
+
+```python
+# Load full Delta table
+df_all = spark.read.format("delta").load(delta_path)
+
+# Show latest 100 rows
+from pyspark.sql.functions import col
+df_all.orderBy(col("ingestion_time").desc()).show(100, truncate=False)
+
+print(f"✅ Total rows in Delta Table: {df_all.count()}")
+
