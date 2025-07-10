@@ -69,6 +69,7 @@ else:
 
 print("✅ Delta table updated with 1000 rows.")
 ---
+---
 
 ## 🔷 STEP 2: Read Full Delta Table & Show Latest 100 Rows
 
