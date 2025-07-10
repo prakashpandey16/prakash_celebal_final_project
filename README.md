@@ -1,5 +1,5 @@
 
-# ✅ Azure Delta Table Ingestion Project
+# ✅ Azure Delta Lake Ingestion Project
 
 This project demonstrates how to automate data ingestion into **Delta Lake on Azure Data Lake Storage Gen2**, using **PySpark**, and send email summaries with the latest ingested data.
 
