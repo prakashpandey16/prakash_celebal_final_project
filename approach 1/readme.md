@@ -68,7 +68,8 @@ else:
     df.write.format("delta").mode("overwrite").save(delta_path)
 
 print("✅ Delta table updated with 1000 rows.")
---- 
+---
+
 ## 🔷 STEP 2: Read Full Delta Table & Show Latest 100 Rows
 
 This step loads the complete Delta table and displays the latest 100 rows based on the `ingestion_time` column.
