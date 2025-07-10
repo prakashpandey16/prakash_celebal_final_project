@@ -171,5 +171,5 @@ print("✅ Email sent with attachment and HTML preview.")
 
 **Prakash Pandey**  
 🎓 BCA Student | 🚀 Aspiring Data Engineer  
-🔗 [LinkedIn](https://www.linkedin.com/in/prakash-pandey-1234)
+🔗 [LinkedIn](https://www.linkedin.com/in/prakash-pandey-2827522b1/)
 
