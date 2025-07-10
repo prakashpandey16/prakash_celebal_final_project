@@ -1,4 +1,4 @@
-# ⚙️ Delta Table Automation Pipeline – Solution Overview
+# ⚙️ Delta Lake Automation Pipeline – Solution Overview
 
 ## 📌 Problem Statement
 
