@@ -177,15 +177,6 @@ python delta_pipeline.py
 - Track ingestion with timestamps
 - Send email summary (latest 10 records)
 - Run automatically every 5 minutes
-
----
-
-### 🔹 STEP 5: (Optional but Recommended)
-
-- ✅ Use `.env` file or **Azure Key Vault** to store secrets
-- 📜 Add logging and exception handling
-- 📁 Push code to **GitHub** for portfolio visibility
-
 ---
 
 ## 📦 Dependencies
