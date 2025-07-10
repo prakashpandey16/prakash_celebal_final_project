@@ -26,3 +26,45 @@
    - Send email from **local system**.
    - Attach the downloaded CSV file.
    - Use `smtplib`, `email.mime`, or any preferred mail automation package.
+
+# 🔷 STEP 1: Generate & Append 1000 Fake Rows to Delta Table
+
+---
+
+### 🧾 Python Code
+
+```python
+from pyspark.sql.functions import current_timestamp
+from faker import Faker
+import pandas as pd
+from delta.tables import DeltaTable
+
+# Initialize Faker
+fake = Faker()
+Faker.seed(42)
+
+# 1. Generate 1000 fake rows
+def generate_fake_data(n):
+    return pd.DataFrame([{
+        "name": fake.name(),
+        "address": fake.address().replace('\n', ', '),
+        "email": fake.email(),
+        "ingestion_time": pd.Timestamp.now()
+    } for _ in range(n)])
+
+pdf = generate_fake_data(1000)
+df = spark.createDataFrame(pdf)
+
+# 2. Define Delta table path
+delta_path = "dbfs:/tmp/user_delta_table"
+
+# 3. Append or Create Delta table
+if DeltaTable.isDeltaTable(spark, delta_path):
+    delta_table = DeltaTable.forPath(spark, delta_path)
+    delta_table.alias("old").merge(
+        df.alias("new"), "old.email = new.email"
+    ).whenNotMatchedInsertAll().execute()
+else:
+    df.write.format("delta").mode("overwrite").save(delta_path)
+
+print("✅ Delta table updated with 1000 rows.")
