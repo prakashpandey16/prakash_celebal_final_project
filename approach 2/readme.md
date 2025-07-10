@@ -196,8 +196,13 @@ python delta_pipeline.py
 - Make sure 2-Step Verification is enabled on your Google account.
 
 ---
+---
 
-## 🙌 Credits
+## 👨‍💻 Author
 
-Project built by [Prakash Pandey](linkedin.com/in/prakash-pandey-2827522b1/)
+**Prakash Pandey**  
+🎓 BCA Student | 🚀 Aspiring Data Engineer  
+🔗 [LinkedIn](https://www.linkedin.com/in/prakash-pandey-2827522b1/)
+
+---
 
